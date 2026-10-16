@@ -11,6 +11,7 @@ import Customers from '@/pages/Customers';
 import Dashboard from '@/pages/Dashboard';
 import Deliveries from '@/pages/Deliveries';
 import DeliveryDetail from '@/pages/DeliveryDetail';
+import ErrorPage from '@/pages/ErrorPage';
 import History from '@/pages/History';
 import Login from '@/pages/Login';
 import Machinery from '@/pages/Machinery';
@@ -33,9 +34,10 @@ function GuestOnly() {
 }
 
 const router = createBrowserRouter([
-  { element: <GuestOnly />, children: [{ path: '/login', element: <Login /> }] },
+  { element: <GuestOnly />, errorElement: <ErrorPage />, children: [{ path: '/login', element: <Login /> }] },
   {
     element: <RequireAuth />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'requests', element: <Orders preset="Requested" /> },

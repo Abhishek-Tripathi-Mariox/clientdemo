@@ -162,7 +162,9 @@ function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void 
       setSel(0);
     }
   }, [open]);
-  useEffect(() => setSel(0), [q]);
+  useEffect(() => {
+    setSel(0);
+  }, [q]);
   if (!open) return null;
 
   const go = (to: string) => {
@@ -226,7 +228,11 @@ export function AppShell() {
   const [palette, setPalette] = useState(false);
   const pending = useStore((s) => s.orders.filter((o) => o.status === 'Requested').length);
 
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  // Block body on purpose: effects must return nothing or a clean-up function. Some browser
+  // extensions patch window.scrollTo to return a value, which React would then call as a clean-up.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {

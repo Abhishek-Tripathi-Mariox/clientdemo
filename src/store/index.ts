@@ -71,6 +71,9 @@ const initial = (): Data => ({
   seq: 1060,
 });
 
+/** localStorage key of the persisted demo data. */
+export const STORAGE_KEY = 'kaviraj-demo-panel';
+
 export const useStore = create<Store>()(
   persist(
     (set, get) => {
@@ -208,7 +211,7 @@ export const useStore = create<Store>()(
       };
     },
     {
-      name: 'kaviraj-demo-panel',
+      name: STORAGE_KEY,
       version: 1,
       storage: createJSONStorage(() => localStorage),
     },
